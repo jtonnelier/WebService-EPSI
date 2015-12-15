@@ -1,16 +1,15 @@
-package main.java.com;
+package main.java.com.application;
 
-/**
- * Created by Jocelyn on 02/12/2015.
- */
-
-import java.util.Collections;
-import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import java.util.Collections;
+import java.util.Set;
 
+/**
+ * Classe Utilitaire pour Service Rest
+ */
 @ApplicationPath("")
-public class ConnexionApplication extends Application {
+public class UserConnexionAPI extends Application {
 
     @Override
     public Set<Class<?>> getClasses() {
