@@ -1,4 +1,4 @@
-package main.java.com.application;
+package main.java.com;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

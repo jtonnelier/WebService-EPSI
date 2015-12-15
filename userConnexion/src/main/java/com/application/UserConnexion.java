@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response;
  * Created by Jocelyn on 15/12/2015.
  * Classe d'entrée pour les connexions Utilsateurs
  */
+@Path("/connexion")
 public class UserConnexion {
 
     private Gson gson = new Gson();
