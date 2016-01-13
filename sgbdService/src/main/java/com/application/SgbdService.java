@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response;
  * Classe principale du WS SGBD Service
  * Created by Jocelyn on 13/01/2016.
  */
-@Path("/sgbd")
+@Path("/")
 public class SgbdService {
 
     private UserHelper userHelper = new UserHelper();
