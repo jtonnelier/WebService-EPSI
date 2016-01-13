@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class UserDAO extends AbstractDAO {
 
-    public final String CONNECT_USER = "SELECT login from user where login=? and mdp=?;";
+    private final String CONNECT_USER = "SELECT login from user where login=? and mdp=?;";
     public UserDAO(){
     }
 
