@@ -14,10 +14,18 @@ import javax.ws.rs.core.Response;
  */
 @Path("/connexion")
 public class UserConnexion {
-
-    private Gson gson = new Gson();
     /**
-     * Appelle a la connexion de l'utilisateur sur le bugtracker
+     * Formater JSon
+     */
+    private Gson gson = new Gson();
+
+    /**
+     * URL du WebService BDD
+     */
+    private String URL_SGBD;
+
+    /**
+     * Fonction de connexion pour l'utilisateur
      * @param login
      * @param password
      * @return
@@ -28,5 +36,22 @@ public class UserConnexion {
     public Response connectUser(@QueryParam("login") String login, @QueryParam("password") String password ) {
         String Json = gson.toJson("Ok");
         return Response.status(200).entity(Json).build();
+    }
+
+
+    public Gson getGson() {
+        return gson;
+    }
+
+    public String getURL_SGBD() {
+        return URL_SGBD;
+    }
+
+    public void setGson(Gson gson) {
+        this.gson = gson;
+    }
+
+    public void setURL_SGBD(String URL_SGBD) {
+        this.URL_SGBD = URL_SGBD;
     }
 }
