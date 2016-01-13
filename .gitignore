@@ -16,11 +16,13 @@
 *.ipr
 *.iws
 *.iml
+*.class
 
 ## Additional for IntelliJ
 out/
 gen/
 userConnexion/target/
+sgbdService/target/
 
 *.jar
 *.war
