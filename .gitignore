@@ -23,6 +23,7 @@ out/
 gen/
 userConnexion/target/
 sgbdService/target/
+common/target/
 
 *.jar
 *.war
