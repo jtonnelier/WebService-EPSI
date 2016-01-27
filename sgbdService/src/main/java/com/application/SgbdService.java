@@ -2,10 +2,7 @@ package main.java.com.application;
 
 import main.java.com.helpers.UserHelper;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 /**
@@ -18,7 +15,7 @@ public class SgbdService {
     private UserHelper userHelper = new UserHelper();
 
     /**
-     * Entrée SGBD connexion utilisateur
+     * EntrÃ©e SGBD connexion utilisateur
      * @param login
      * @param password
      * @return
@@ -26,7 +23,7 @@ public class SgbdService {
     @POST
     @Path("/userconnect")
     @Produces("application/json")
-    public Response userConnect(@QueryParam("login") String login, @QueryParam("password") String password){
+    public Response userConnect(@FormParam("login") String login, @FormParam("password") String password){
         String jsonResponse = userHelper.connectUser(login, password);
         return Response.status(200).entity(jsonResponse).build();
     }

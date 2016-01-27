@@ -1,6 +1,7 @@
 package main.java.com.application;
 
 import com.google.gson.Gson;
+import main.java.com.helpers.UserConnectionHelper;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -10,7 +11,7 @@ import javax.ws.rs.core.Response;
 
 /**
  * Created by Jocelyn on 15/12/2015.
- * Classe d'entrée pour les connexions Utilsateurs
+ * Classe d'entrï¿½e pour les connexions Utilsateurs
  */
 @Path("/")
 public class UserConnexion {
@@ -25,6 +26,12 @@ public class UserConnexion {
     private String URL_SGBD;
 
     /**
+     * Helper user
+     */
+
+    UserConnectionHelper userConnectionHelper = new UserConnectionHelper();
+
+    /**
      * Fonction de connexion pour l'utilisateur
      * @param login
      * @param password
@@ -34,8 +41,8 @@ public class UserConnexion {
     @Path("/connect")
     @Produces("application/json")
     public Response connectUser(@QueryParam("login") String login, @QueryParam("password") String password ) {
-        String Json = gson.toJson("Ok");
-        return Response.status(200).entity(Json).build();
+        String jsonReponse = userConnectionHelper.callSGBDService(login, password);
+        return Response.status(200).entity(jsonReponse).build();
     }
 
 
