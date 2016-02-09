@@ -23,16 +23,25 @@ public class UserConnectionHelper {
     /** Common Helper **/
     private CommonServiceHelper commonServiceHelper = new CommonServiceHelper();
 
+    //TODO refactorer ces fonctions en une seule
     /**
      * Fonction appellant la fonction commune d'appel a un WS
      * @param login
      * @param password
      */
-    public String callSGBDService(String login, String password){
+    public String userConnect(String login, String password){
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("login", login);
         params.put("password", password);
         String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/userconnect", params);
+        return serviceResponse;
+    }
+
+    public String checkToken(String login, String token){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("login", login);
+        params.put("token", token);
+        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/istokenvalid", params);
         return serviceResponse;
     }
 }

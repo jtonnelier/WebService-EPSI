@@ -23,7 +23,7 @@ public class UserHelper {
     }
 
     /**
-     * Fonction appellant la DAO pour v�rifier la connexion d'un utilisateur
+     * Fonction appellant la DAO pour vérifier la connexion d'un utilisateur
      * @param login
      * @param password
      * @return
@@ -31,8 +31,32 @@ public class UserHelper {
     public String connectUser(String login, String password){
         UserConnexionResponse response = new UserConnexionResponse();
         try {
-            response.setIsConnect(this.userDAO.connexionUser(login, password));
+            String tokenUser = this.userDAO.connexionUser(login, password);
+            if(tokenUser != null){
+                response.setIsConnect(1);
+                response.setToken(tokenUser);
+            }
+            else{
+                response.setIsConnect(-1);
+            }
         } catch (SQLException e) {
+            response.setIsConnect(-1);
+        }
+        return gson.toJson(response);
+    }
+
+    /**
+     * Fonction appellant la DAO pour vérifier le token d'un utilisateur
+     * @param login
+     * @param password
+     * @return
+     */
+    public String isAValidToken(String login, String password){
+        UserConnexionResponse response = new UserConnexionResponse();
+        if(this.userDAO.isValideToken(login, password)){
+            response.setIsConnect(1);
+        }
+        else{
             response.setIsConnect(-1);
         }
         return gson.toJson(response);

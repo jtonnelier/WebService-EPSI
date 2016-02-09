@@ -27,4 +27,18 @@ public class SgbdService {
         String jsonResponse = userHelper.connectUser(login, password);
         return Response.status(200).entity(jsonResponse).build();
     }
+
+    /**
+     * Entrée verification token SGBD
+     * @param login
+     * @param token
+     * @return
+     */
+    @POST
+    @Path("/istokenvalid")
+    @Produces("application/json")
+    public Response isTokenValid(@FormParam("login") String login, @FormParam("token") String token){
+        String jsonResponse = userHelper.isAValidToken(login, token);
+        return Response.status(200).entity(jsonResponse).build();
+    }
 }

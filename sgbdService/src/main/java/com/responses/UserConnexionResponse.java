@@ -6,6 +6,7 @@ package main.java.com.responses;
 public class UserConnexionResponse {
 
     private int isConnect;
+    private String token;
 
     public UserConnexionResponse(){
 
@@ -13,6 +14,14 @@ public class UserConnexionResponse {
 
     public int isConnect() {
         return isConnect;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setIsConnect(int isConnect) {
