@@ -69,6 +69,7 @@ public class UserDAO extends AbstractDAO {
         }
         //Problème d'accès bdd
         catch (SQLException e) {
+            e.printStackTrace();
             return "-1";
         }
     }
@@ -123,7 +124,7 @@ public class UserDAO extends AbstractDAO {
             statement.setString(2, login);
             ResultSet resultSet = statement.executeQuery();
 
-            //OLe token est existant en base, le token est donc valide
+            //Le token est existant en base, le token est donc valide
             if(resultSet.next()) {
                 return true;
             }

@@ -11,15 +11,15 @@ import java.sql.SQLException;
  */
 public class UserHelper {
 
-    UserDAO userDAO = new UserDAO();
+    //User DAO
+    private UserDAO userDAO;
 
-    /**
-     * Formater JSon
-     */
-    private Gson gson = new Gson();
+    //Formatter JSON
+    private Gson gson;
 
     public UserHelper(){
-
+        this.userDAO = new UserDAO();
+        this.gson = new Gson();
     }
 
     /**
@@ -51,14 +51,8 @@ public class UserHelper {
      * @param password
      * @return
      */
-    public String isAValidToken(String login, String password){
+    public Boolean isAValidToken(String login, String password){
         UserConnexionResponse response = new UserConnexionResponse();
-        if(this.userDAO.isValideToken(login, password)){
-            response.setIsConnect(1);
-        }
-        else{
-            response.setIsConnect(-1);
-        }
-        return gson.toJson(response);
+        return this.userDAO.isValideToken(login, password);
     }
 }

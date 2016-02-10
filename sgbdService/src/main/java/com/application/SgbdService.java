@@ -1,5 +1,6 @@
 package main.java.com.application;
 
+import main.java.com.helpers.GifHelper;
 import main.java.com.helpers.UserHelper;
 
 import javax.ws.rs.*;
@@ -13,6 +14,12 @@ import javax.ws.rs.core.Response;
 public class SgbdService {
 
     private UserHelper userHelper = new UserHelper();
+    private GifHelper gifHelper = new GifHelper();
+
+    /**
+     * USERCONNEXION
+     * SERVICE
+     */
 
     /**
      * Entrée SGBD connexion utilisateur
@@ -28,17 +35,22 @@ public class SgbdService {
         return Response.status(200).entity(jsonResponse).build();
     }
 
+
     /**
-     * Entrée verification token SGBD
+     * USERGIF
+     * SERVICE
+     */
+
+    /**
+     * Entrée recuperation des gifs d'un utilisateur
      * @param login
-     * @param token
      * @return
      */
     @POST
-    @Path("/istokenvalid")
+    @Path("/getusergif")
     @Produces("application/json")
-    public Response isTokenValid(@FormParam("login") String login, @FormParam("token") String token){
-        String jsonResponse = userHelper.isAValidToken(login, token);
+    public Response getGifUser(@FormParam("login") String login, @FormParam("token") String token){
+        String jsonResponse = gifHelper.getUserGif(login, token);
         return Response.status(200).entity(jsonResponse).build();
     }
 }

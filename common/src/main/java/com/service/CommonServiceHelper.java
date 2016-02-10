@@ -1,8 +1,13 @@
 package main.java.com.service;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -10,6 +15,13 @@ import java.util.Map;
  */
 public class CommonServiceHelper {
 
+    /**
+     * Fonction appellant le web service passé en paramètre
+     * Le service est appellé via un formulaire
+     * @param url
+     * @param params
+     * @return
+     */
     public String callWS(String url, Map<String, String> params){
         String jsonResponse = "";
         try{
@@ -35,5 +47,4 @@ public class CommonServiceHelper {
 
         return jsonResponse;
     }
-
 }
