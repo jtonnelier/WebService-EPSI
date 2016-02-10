@@ -24,6 +24,7 @@ gen/
 userConnexion/target/
 sgbdService/target/
 common/target/
+userGif/target/
 
 *.jar
 *.war
