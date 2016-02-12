@@ -53,7 +53,7 @@ public class CommonServiceHelper {
         }
 
         if(format.equalsIgnoreCase("xml")){
-            this.convertJsonToXML(jsonResponse);
+            jsonResponse = this.convertJsonToXML(jsonResponse);
         }
 
         return jsonResponse;
