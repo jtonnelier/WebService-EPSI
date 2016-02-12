@@ -83,11 +83,10 @@ public class UserDAO extends AbstractDAO {
     private String setUserToken(int idUser){
         String token = generateToken(random.nextInt(64));
         try {
-            PreparedStatement statement = null;
+            PreparedStatement statement = connection.prepareStatement(SET_USER_TOKEN);
             statement.setInt(1, idUser);
             statement.setString(2, token);
-            ResultSet resultSet = statement.executeQuery();
-            statement = connection.prepareStatement(SET_USER_TOKEN);
+            statement.executeUpdate();
         }
         //Erreur lors de l'ajout du token
         catch (SQLException e) {
