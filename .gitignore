@@ -21,10 +21,8 @@
 ## Additional for IntelliJ
 out/
 gen/
-userConnexion/target/
-sgbdService/target/
-common/target/
-userGif/target/
+*/target/
+
 
 *.jar
 *.war
