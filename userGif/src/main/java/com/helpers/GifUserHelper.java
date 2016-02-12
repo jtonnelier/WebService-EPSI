@@ -23,11 +23,11 @@ public class GifUserHelper {
     * @param token
     * @return
     */
-    public String getUserGif(String login, String token){
+    public String getUserGif(String format, String login, String token){
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("login", login);
         params.put("token", token);
-        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params);
+        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params, format);
         return serviceResponse;
     }
 
@@ -38,13 +38,13 @@ public class GifUserHelper {
      * @param token
      * @return
      */
-    public String addGifUser(String login, String token, String label, String gifUrl){
+    public String addGifUser(String format, String login, String token, String label, String gifUrl){
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("login", login);
         params.put("token", token);
         params.put("label", label);
         params.put("gifURL", gifUrl);
-        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params);
+        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params, format);
         return serviceResponse;
     }
 }

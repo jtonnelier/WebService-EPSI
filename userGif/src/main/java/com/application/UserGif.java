@@ -3,6 +3,7 @@ package main.java.com.application;
 import main.java.com.helpers.GifUserHelper;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -26,10 +27,16 @@ public class UserGif {
      */
     @GET
     @Path("/getgifuser")
-    @Produces("application/json")
-    public Response getGifUser(@QueryParam("login") String login, @QueryParam("token") String token) {
-        String jsonReponse = gifUserHelper.getUserGif(login, token);
-        return Response.status(200).entity(jsonReponse).build();
+    @Produces({"application/xml", "application/json"})
+    public Response getGifUser(@QueryParam("format") String format, @QueryParam("login") String login, @QueryParam("token") String token) {
+        String response = gifUserHelper.getUserGif(format, login, token);
+        //Check format and adapt response
+        if(format.equalsIgnoreCase("json") || format == null){
+            return Response.status(200).type(MediaType.APPLICATION_JSON).entity(response).build();
+        }
+        else{
+            return Response.status(200).type(MediaType.APPLICATION_XML).entity(response).build();
+        }
     }
 
     /**
@@ -40,11 +47,17 @@ public class UserGif {
      */
     @POST
     @Path("/addGif")
-    @Produces("application/json")
-    public Response addGifUser(@FormParam("login") String login, @FormParam("token") String token, @FormParam("label") String label,
+    @Produces({"application/xml", "application/json"})
+    public Response addGifUser(@FormParam("format") String format, @FormParam("login") String login, @FormParam("token") String token, @FormParam("label") String label,
                                @FormParam("gifURL") String gifURL ) {
-        String jsonReponse = gifUserHelper.getUserGif(login, token);
-        return Response.status(200).entity(jsonReponse).build();
+        String response = gifUserHelper.getUserGif(format, login, token);
+        //Check format and adapt response
+        if(format.equalsIgnoreCase("json") || format == null){
+            return Response.status(200).type(MediaType.APPLICATION_JSON).entity(response).build();
+        }
+        else{
+            return Response.status(200).type(MediaType.APPLICATION_XML).entity(response).build();
+        }
     }
 }
 

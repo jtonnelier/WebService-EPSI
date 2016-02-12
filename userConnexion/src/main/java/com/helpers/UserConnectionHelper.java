@@ -24,15 +24,16 @@ public class UserConnectionHelper {
     private CommonServiceHelper commonServiceHelper = new CommonServiceHelper();
 
     /**
-     * Fonction appellant la fonction commune d'appel a un WS
+     * Fonction appellant la fonction commune d'appel a un WS*
+     * @param format
      * @param login
      * @param password
      */
-    public String userConnect(String login, String password){
+    public String userConnect(String format, String login, String password){
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("login", login);
         params.put("password", password);
-        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/userconnect", params);
+        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/userconnect", params, format);
         return serviceResponse;
     }
 }

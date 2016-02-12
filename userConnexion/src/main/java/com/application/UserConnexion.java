@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import main.java.com.helpers.UserConnectionHelper;
 
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -31,10 +32,15 @@ public class UserConnexion {
      */
     @POST
     @Path("/connect")
-    @Produces("application/json")
-    public Response connectUser(@FormParam("login") String login, @FormParam("password") String password) {
-        String jsonReponse = userConnectionHelper.userConnect(login, password);
-        return Response.status(200).entity(jsonReponse).build();
+    @Produces({"application/xml", "application/json"})
+    public Response connectUser(@FormParam("format") String format, @FormParam("login") String login, @FormParam("password") String password) {
+        String jsonReponse = userConnectionHelper.userConnect(format, login, password);
+        if(format.equalsIgnoreCase("json") || format == null){
+            return Response.status(200).type(MediaType.APPLICATION_JSON).entity(jsonReponse).build();
+        }
+        else{
+            return Response.status(200).type(MediaType.APPLICATION_XML).entity(jsonReponse).build();
+        }
     }
 }
 

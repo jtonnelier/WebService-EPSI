@@ -1,6 +1,9 @@
 package main.java.com.service;
 
 
+import net.sf.json.JSONObject;
+import net.sf.json.xml.XMLSerializer;
+
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
@@ -11,14 +14,22 @@ import java.util.Map;
  */
 public class CommonServiceHelper {
 
+    //Formater xml
+    private XMLSerializer xmlSerializer;
+
+    public CommonServiceHelper() {
+        this.xmlSerializer = new XMLSerializer();
+    }
+
     /**
      * Fonction appellant le web service passé en paramètre
      * Le service est appellé via un formulaire
      * @param url
      * @param params
+     * @param format le format souhaité en réponse (xml ou json)
      * @return
      */
-    public String callWS(String url, Map<String, String> params){
+    public String callWS(String url, Map<String, String> params, String format){
         String jsonResponse = "";
         try{
             Form form = new Form();
@@ -41,6 +52,15 @@ public class CommonServiceHelper {
             e.printStackTrace();
         }
 
+        if(format.equalsIgnoreCase("xml")){
+            this.convertJsonToXML(jsonResponse);
+        }
+
         return jsonResponse;
+    }
+
+    private String convertJsonToXML(String reponseJson){
+        JSONObject reponseJSon = JSONObject.fromObject(reponseJson);
+        return xmlSerializer.write(reponseJSon).toString();
     }
 }
