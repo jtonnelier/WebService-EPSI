@@ -10,7 +10,11 @@ import java.util.HashMap;
 public class GifUserHelper {
 
     /** Common Helper **/
-    private CommonServiceHelper commonServiceHelper = new CommonServiceHelper();
+    private CommonServiceHelper commonServiceHelper;
+
+    public GifUserHelper() {
+        this.commonServiceHelper = new CommonServiceHelper();
+    }
 
     /**
     * Fonction appellant le service SGBD pour récuperer les
@@ -23,6 +27,23 @@ public class GifUserHelper {
         HashMap<String, String> params = new HashMap<String, String>();
         params.put("login", login);
         params.put("token", token);
+        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params);
+        return serviceResponse;
+    }
+
+    /**
+     * Fonction appellant le service SGBD pour enregistrer un
+     * gif pour un utilisateur
+     * @param login
+     * @param token
+     * @return
+     */
+    public String addGifUser(String login, String token, String label, String gifUrl){
+        HashMap<String, String> params = new HashMap<String, String>();
+        params.put("login", login);
+        params.put("token", token);
+        params.put("label", label);
+        params.put("gifURL", gifUrl);
         String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params);
         return serviceResponse;
     }

@@ -1,6 +1,5 @@
 package main.java.com.application;
 
-import com.google.gson.Gson;
 import main.java.com.helpers.GifUserHelper;
 
 import javax.ws.rs.*;
@@ -28,7 +27,22 @@ public class UserGif {
     @GET
     @Path("/getgifuser")
     @Produces("application/json")
-    public Response isTokenValid(@QueryParam("login") String login, @QueryParam("token") String token) {
+    public Response getGifUser(@QueryParam("login") String login, @QueryParam("token") String token) {
+        String jsonReponse = gifUserHelper.getUserGif(login, token);
+        return Response.status(200).entity(jsonReponse).build();
+    }
+
+    /**
+     * Route ajoutant un gif pour un user
+     * @param login
+     * @param token
+     * @return
+     */
+    @POST
+    @Path("/addGif")
+    @Produces("application/json")
+    public Response addGifUser(@FormParam("login") String login, @FormParam("token") String token, @FormParam("label") String label,
+                               @FormParam("gifURL") String gifURL ) {
         String jsonReponse = gifUserHelper.getUserGif(login, token);
         return Response.status(200).entity(jsonReponse).build();
     }

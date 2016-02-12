@@ -29,10 +29,10 @@ public class UserConnexion {
      * @param password
      * @return
      */
-    @GET
+    @POST
     @Path("/connect")
     @Produces("application/json")
-    public Response connectUser(@QueryParam("login") String login, @QueryParam("password") String password) {
+    public Response connectUser(@FormParam("login") String login, @FormParam("password") String password) {
         String jsonReponse = userConnectionHelper.userConnect(login, password);
         return Response.status(200).entity(jsonReponse).build();
     }

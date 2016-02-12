@@ -12,8 +12,10 @@ import java.util.ArrayList;
  */
 public class GifDAO extends AbstractDAO {
 
-    //requete recuperation des gifs d'un utilisateur
+    //Requete recuperation des gifs d'un utilisateur
     private final String GET_GIF_USER = "SELECT lien FROM gif WHERE id_user = (SELECT id FROM utilisateur WHERE login = ?);";
+    //Requete d'ajout de d'un gif pour un utilisateur
+    private final String ADD_GIF_USER = "INSERT INTO gif VALUES ((SELECT id FROM utilisateur WHERE login = ?),?,?,?);";
     /*
    Contructor
     */
@@ -45,4 +47,25 @@ public class GifDAO extends AbstractDAO {
         return gifsList;
     }
 
+    /**
+     * Ajout d'un gif en base pour un utilisateur
+     * @param login
+     * @return
+     */
+    public int addGifUser(String login, String label, String url){
+        int gifAdded = 0;
+        try{
+            PreparedStatement statement = connection.prepareStatement(ADD_GIF_USER);
+            statement.setString(1, login);
+            statement.setString(2, label);
+            statement.setString(3, url);
+            statement.setInt(4, 1); //Only Giphy for the moment
+            gifAdded = statement.executeUpdate();
+        }
+        //Problème d'accès bdd
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gifAdded;
+    }
 }

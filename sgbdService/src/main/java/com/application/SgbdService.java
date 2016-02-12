@@ -13,8 +13,18 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class SgbdService {
 
-    private UserHelper userHelper = new UserHelper();
-    private GifHelper gifHelper = new GifHelper();
+    //Helper pour le microService UserHelper
+    private UserHelper userHelper;
+    //Helper pour le microService userGif
+    private GifHelper gifHelper;
+
+    /**
+     * Constructor
+     */
+    public SgbdService() {
+        this.userHelper = new UserHelper();
+        this.gifHelper = new GifHelper();
+    }
 
     /**
      * USERCONNEXION
@@ -51,6 +61,20 @@ public class SgbdService {
     @Produces("application/json")
     public Response getGifUser(@FormParam("login") String login, @FormParam("token") String token){
         String jsonResponse = gifHelper.getUserGif(login, token);
+        return Response.status(200).entity(jsonResponse).build();
+    }
+
+    /**
+     * Entrée enregistrement d'un gif pour un utilisateur
+     * @param login
+     * @return
+     */
+    @POST
+    @Path("/getusergif")
+    @Produces("application/json")
+    public Response addGifUser(@FormParam("login") String login, @FormParam("token") String token, @FormParam("label") String label,
+                               @FormParam("gifURL") String gifURL ){
+        String jsonResponse = gifHelper.addUserGif(login, token, label, gifURL);
         return Response.status(200).entity(jsonResponse).build();
     }
 }

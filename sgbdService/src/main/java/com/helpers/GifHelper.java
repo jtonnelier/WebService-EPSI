@@ -42,4 +42,29 @@ public class GifHelper {
         }
         return gson.toJson(response);
     }
+
+    /**
+     * Appel de la DAO pour la sauvegarde d'un gif
+     * pour un utilisateur avec verification du token
+     * @param login
+     * @param token
+     * @return
+     */
+    public String addUserGif(String login, String token, String label, String url){
+        GifUserResponse response = new GifUserResponse();
+        if(userHelper.isAValidToken(login, token)){
+            int resultAddedGif = gifDAO.addGifUser(login, label, url);
+            if(resultAddedGif != 1){
+                response.setError("Error d'ajout du gif");
+            }
+            else{
+                response.setGifAdded(resultAddedGif);
+            }
+
+        }
+        else{
+            response.setError("Token Invalide");
+        }
+        return gson.toJson(response);
+    }
 }
