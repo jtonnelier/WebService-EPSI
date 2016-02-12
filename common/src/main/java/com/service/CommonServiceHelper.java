@@ -1,13 +1,9 @@
 package main.java.com.service;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
