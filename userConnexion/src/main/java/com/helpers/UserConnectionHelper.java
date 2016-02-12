@@ -1,18 +1,7 @@
 package main.java.com.helpers;
 
-
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import main.java.com.service.CommonServiceHelper;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 /**

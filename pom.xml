@@ -13,6 +13,7 @@
         <module>sgbdService</module>
         <module>common</module>
         <module>userGif</module>
+        <module>gifSearch</module>
     </modules>
 
 

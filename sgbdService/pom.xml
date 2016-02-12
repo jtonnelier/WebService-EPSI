@@ -79,6 +79,7 @@
             <type>jar</type>
             <scope>runtime</scope>
         </dependency>
+        <!-- Project lib -->
         <dependency>
             <groupId>com.epsi.project.webservices</groupId>
             <artifactId>common</artifactId>

@@ -1,6 +1,5 @@
 package main.java.com.application;
 
-import com.google.gson.Gson;
 import main.java.com.helpers.UserConnectionHelper;
 
 import javax.ws.rs.*;
