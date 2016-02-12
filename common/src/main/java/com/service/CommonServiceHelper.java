@@ -52,7 +52,7 @@ public class CommonServiceHelper {
             e.printStackTrace();
         }
 
-        if(format.equalsIgnoreCase("xml")){
+        if(format!= null && format.equalsIgnoreCase("xml")){
             jsonResponse = this.convertJsonToXML(jsonResponse);
         }
 
