@@ -14,27 +14,19 @@ import java.util.Random;
  */
 public class UserDAO extends AbstractDAO {
 
-    /**
-     * Random Object for generating token
-     */
+    //Random Object for generating token
     private Random random = new Random();
-
-    /**
-     * Caractère autorisé pour le token
-     */
+    //Caractère autorisé pour le token
     private String characters = "abcdefghijklmnopqrstwxyz1234567489";
-    /**
-     * Request for user connection
-     */
+    //Request for user connection
     private final String CONNECT_USER = "SELECT id, login from utilisateur where login=? and password=?;";
-    /**
-     * Request for user connection
-     */
+    //Request for user connection
     private final String SET_USER_TOKEN = "INSERT INTO token VALUES(?,?);";
-    /**
-     * Request for user connection
-     */
+    //Request for user connection
     private final String IS_TOKEN_VALID = "SELECT * FROM token t WHERE t.token = ? AND t.id_user = (SELECT id FROM utilisateur WHERE login = ?)";
+    //Request for check if token exist in base
+    private final String TOKEN_EXIST = "SELECT token FROM token WHERE t.id_user = ?";
+
     /*
     Contructor
      */
@@ -75,25 +67,33 @@ public class UserDAO extends AbstractDAO {
     }
 
     /**
-     * Methode privée ajoutant le token en base et le retourne
-     * pour l'utilisateur en param
+     * Methode privée verifiant si un token existe en base
+     * Sinon en creer un et l'ajoute en base
      * @param idUser
      * @return
      */
     private String setUserToken(int idUser){
         String token = generateToken(random.nextInt(64));
-        try {
-            PreparedStatement statement = connection.prepareStatement(SET_USER_TOKEN);
-            statement.setInt(1, idUser);
-            statement.setString(2, token);
-            statement.executeUpdate();
+        String tokenExist = this.checkTokenExist(idUser);
+        //Le token est inexistant
+        if(tokenExist != null){
+            try {
+
+                PreparedStatement statement = connection.prepareStatement(SET_USER_TOKEN);
+                statement.setInt(1, idUser);
+                statement.setString(2, token);
+                statement.executeUpdate();
+            }
+            //Erreur lors de l'ajout du token
+            catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+            return token;
         }
-        //Erreur lors de l'ajout du token
-        catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+        else{
+            return tokenExist;
         }
-        return token;
     }
 
     /**
@@ -108,6 +108,32 @@ public class UserDAO extends AbstractDAO {
             text[i] = characters.charAt(random.nextInt(characters.length()));
         }
         return new String(text);
+    }
+
+    /**
+     * Methode privée vérifiant si un token
+     * Existe déjà en base pour un utilisateur
+     * @param idUser
+     * @return le token si existant, sinon null
+     */
+    private String checkTokenExist(int idUser){
+        String token = null;
+        try {
+            PreparedStatement statement = connection.prepareStatement(TOKEN_EXIST);
+            statement.setInt(1, idUser);
+            ResultSet resultSet = statement.executeQuery();
+
+            //Le token est existant en base on le renvois
+            if(resultSet.next()) {
+                token = resultSet.getString("token");
+            }
+        }
+        //Erreur lors de l'ajout du token
+        catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return token;
     }
 
     /**
