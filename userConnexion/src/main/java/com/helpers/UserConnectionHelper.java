@@ -10,7 +10,14 @@ import java.util.HashMap;
 public class UserConnectionHelper {
 
     /** Common Helper **/
-    private CommonServiceHelper commonServiceHelper = new CommonServiceHelper();
+    private CommonServiceHelper commonServiceHelper;
+
+    /**
+     * Constructor
+     */
+    public UserConnectionHelper(){
+        this.commonServiceHelper = new CommonServiceHelper();
+    }
 
     /**
      * Fonction appellant la fonction commune d'appel a un WS*
