@@ -41,17 +41,4 @@ public class SGBDConnect {
         }
         return connect;
     }
-
-    public static void getInformationConnectivity(){
-        DatabaseMetaData md = null;
-        try {
-            md = connect.getMetaData();
-            ResultSet rs = md.getTables(null, null, "%", null);
-            while (rs.next()) {
-                System.out.println(rs.getString(3));
-            }
-        } catch (SQLException e) {
-            System.out.println("Connexion non valide");
-        }
-    }
 }
