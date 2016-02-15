@@ -50,7 +50,7 @@ public class UserGif {
     @Produces({"application/xml", "application/json"})
     public Response addGifUser(@FormParam("format") String format, @FormParam("login") String login, @FormParam("token") String token, @FormParam("label") String label,
                                @FormParam("gifURL") String gifURL ) {
-        String response = gifUserHelper.getUserGif(format, login, token);
+        String response = gifUserHelper.addGifUser(format, login, token, label, gifURL);
         //Check format and adapt response
         if(format.equalsIgnoreCase("json") || format == null){
             return Response.status(200).type(MediaType.APPLICATION_JSON).entity(response).build();
