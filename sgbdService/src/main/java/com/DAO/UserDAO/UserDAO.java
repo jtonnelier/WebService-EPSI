@@ -25,7 +25,7 @@ public class UserDAO extends AbstractDAO {
     //Request for user connection
     private final String IS_TOKEN_VALID = "SELECT * FROM token t WHERE t.token = ? AND t.id_user = (SELECT id FROM utilisateur WHERE login = ?)";
     //Request for check if token exist in base
-    private final String TOKEN_EXIST = "SELECT token FROM token WHERE t.id_user = ?";
+    private final String TOKEN_EXIST = "SELECT token FROM token WHERE id_user = ?";
 
     /*
     Contructor
@@ -76,9 +76,8 @@ public class UserDAO extends AbstractDAO {
         String token = generateToken(random.nextInt(64));
         String tokenExist = this.checkTokenExist(idUser);
         //Le token est inexistant
-        if(tokenExist != null){
+        if(tokenExist == null){
             try {
-
                 PreparedStatement statement = connection.prepareStatement(SET_USER_TOKEN);
                 statement.setInt(1, idUser);
                 statement.setString(2, token);
