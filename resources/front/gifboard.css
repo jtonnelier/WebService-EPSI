@@ -1,0 +1,35 @@
+.square {
+    float:left;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding-bottom : 18%;
+    overflow:hidden;
+
+    max-height: 200px;
+    max-width: 300px;
+}
+
+.content {
+    position:absolute;
+    height:100%;
+    width:100%;
+    padding: 2% 2%;
+}
+
+img#gif6 {
+    background: url(gif/6.gif) no-repeat 0 0;
+    width: 100%;
+    height: 100%;
+
+    background-size: contain;
+}
+
+img#result_img {
+    background: no-repeat 0 0;
+    width: 100%;
+    height: 100%;
+
+    background-size: contain;
+    border: 2px solid black;
+}
