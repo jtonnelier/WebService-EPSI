@@ -42,6 +42,7 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
         <meta charset="utf-8" />
         <title>Gifboard !!</title>
         <link rel="stylesheet" type="text/css" href="gifboard.css">
+        <script src="https://code.jquery.com/jquery-1.11.3.js"></script>
     </head>
     <body>
         <h1>Bienvenue dans votre Gifboard !</h1>
@@ -74,7 +75,23 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
             exit;
         };
         ?>
-        <!-- Vérifier que le lien est correct -->
+
+        <br/>
+            Recherche: <input type="text" id="rechercheInput"/>
+            <button id="rechercheButton"></button>
+            <div id="rechercheResltat"></div>
+            <script>
+            $('#rechercheButton').click(function() {
+            // tu peux recuperer $('#rechercheInput').val() pour ta recherche
+            $.get( "apiTest.php?tag=toto", function( data ) {
+            console.log(data);
+            data['gifs'].forEach(function(element) {
+            console.log(element);
+            $('#rechercheResltat').append($( "<img src='"+ element.lien +"'/>"));
+            });
+            });
+            });
+            </script>
 
         <br style="clear:both;"/>
         <div id="pager">
