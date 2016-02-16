@@ -56,14 +56,34 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
         ?>
 
         <br style="clear:both;"/>
+        <h2>Insérez votre gif !</h2>
+        <form name="upload" method="post">
+        Hashtag : <input type="text" name="hashtag" required/> <br />
+        Lien : <input type="text" name="link" required/> <br/>
+        <input type="submit" name="upload" value="Upload"/>
+        </form>
+        <?php
+        if (isset ($_POST['upload'])){
+            $hashtag=$_POST['hashtag'];
+            $link=$_POST['link'];
+
+            $req = $bdd->prepare('INSERT INTO gif (id_user, label, lien, site) VALUES(?, ?, ?, ?)');
+            $req->execute(array($_SESSION["id"], $_POST['hashtag'], $_POST['link'], 1));
+
+            header('location:gifboard.php');
+            exit;
+        };
+        ?>
+        <!-- Vérifier que le lien est correct -->
+
+        <br style="clear:both;"/>
         <div id="pager">
             <?php
-            /* faire un boucle sur le $numberOfPages */
             //echo $numberOfPages -1;
             //var_dump(range(0, $numberOfPages -1));
             if ($numberOfPages-1 <= 0) {
 
-            } else foreach (range(0, $numberOfPages -1) as $i) { /* -1 car commence a la page 0 */
+            } else foreach (range(0, $numberOfPages) as $i) { /* -1 car commence a la page 0 */
                 if ($pageId == $i) {
                     echo '<span>'.$i.'</span>';
                 } else {
