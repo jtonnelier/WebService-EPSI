@@ -5,7 +5,7 @@ session_start();
 //echo "The password is " . $_SESSION["password"] . ".";
 if(empty($_SESSION["id"])) {
     session_destroy();
-    header('location:gifboard.php');
+    header('location:connexion.php');
 }
 
 try {
@@ -57,17 +57,33 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
         ?>
 
         <br style="clear:both;"/>
+        <div id="pager">
+            <?php
+            //echo $numberOfPages -1;
+            //var_dump(range(0, $numberOfPages -1));
+            if ($numberOfPages-1 <= 0) {
+
+            } else
+            echo 'Pages : ';
+            foreach (range(0, $numberOfPages) as $i) { /* -1 car commence a la page 0 */
+                if ($pageId == $i) {
+                    echo '<span>'.$i.' </span>';
+                } else {
+                    echo '<span><a href="?page='.$i.' ">'.$i.'</a></span>';
+                }
+            }
+            ?>
+        </div>
+
+        <br style="clear:both;"/>
         <h2>Insérez votre gif !</h2>
         <form name="upload" method="post">
         Hashtag : <input type="text" name="hashtag" required/> <br />
         Lien : <input type="text" name="link" required/> <br/>
-        <input type="submit" name="upload" value="Upload"/>
+        <input type="submit" name="upload" value="upload"/>
         </form>
         <?php
         if (isset ($_POST['upload'])){
-            $hashtag=$_POST['hashtag'];
-            $link=$_POST['link'];
-
             $req = $bdd->prepare('INSERT INTO gif (id_user, label, lien, site) VALUES(?, ?, ?, ?)');
             $req->execute(array($_SESSION["id"], $_POST['hashtag'], $_POST['link'], 1));
 
@@ -77,39 +93,46 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
         ?>
 
         <br/>
-            <h2>Cherchez un gif sur giphy !</h2>
-            Recherche: <input type="text" id="rechercheInput"/>
-            <button id="rechercheButton"></button>
-            <div id="rechercheResltat"></div>
-            <script>
-            $('#rechercheButton').click(function() {
+        <h2>Cherchez un gif !</h2>
+        Recherche: <input type="text" id="rechercheInput"/>
+        <button id="rechercheButton">Rechercher</button>
+        <div id="rechercheResltat"></div>
+        <script>
+        var GIF_SEARCH_RESULTS = [];
+        var SEARCH_INPUT;
+        function showGifSearch() {
+            /* on vide le tableau de resultats */
+            $('#rechercheResltat').html("");
+
+            /* on parcours la global pour afficher les gif  */
+            $.each(GIF_SEARCH_RESULTS, function(key, gif) {
+                /* l'objet gif contient plein de trucs, je choisit d'afficher l'image fixed_with_small */
+                /* lorsqu'on clic sur une image je fais un console.log => on peut voir ce que contient l'objet */
+                $('#rechercheResltat').append($( "<img onclick='onGifClick(" + key + ")' class='rechercheResult' id='gif_" + gif.id + "' src='"+ gif.images.fixed_width_small.url +"'/>"));
+            });
+        }
+
+        function onGifClick(idx) {
+            console.log(GIF_SEARCH_RESULTS[idx]);
+            /* on pourrait imaginer faire un
+
+            $.post('gifboard', data = {'upload': 'ajax', 'hashtag': SEARCH_INPUT, 'link': GIF_SEARCH_RESULTS[idx].images.fixed_width_small.url});
+            => ici pas de verification du retour mais c'est possible
+            */
+        }
+
+        $('#rechercheButton').click(function() {
             // tu peux recuperer $('#rechercheInput').val() pour ta recherche
-            $.get( "apiTest.php?tag=toto", function( data ) {
-            console.log(data);
-            data['gifs'].forEach(function(element) {
-            console.log(element);
-            $('#rechercheResltat').append($( "<img src='"+ element.lien +"'/>"));
+            var searchTag = $('#rechercheInput').val();
+            $.get( "http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + searchTag, function( data ) {
+                /* on sauvegarde dans la global */
+                GIF_SEARCH_RESULTS = data.data;
+                SEARCH_INPUT = searchTag;
+                /* on affiche les resultats */
+                showGifSearch();
             });
-            });
-            });
-            </script>
-
-        <br style="clear:both;"/>
-        <div id="pager">
-            <?php
-            //echo $numberOfPages -1;
-            //var_dump(range(0, $numberOfPages -1));
-            if ($numberOfPages-1 <= 0) {
-
-            } else foreach (range(0, $numberOfPages) as $i) { /* -1 car commence a la page 0 */
-                if ($pageId == $i) {
-                    echo '<span>'.$i.'</span>';
-                } else {
-                    echo '<span><a href="?page='.$i.'">'.$i.'</a></span>';
-                }
-            }
-            ?>
-        </div>
-    </body>
+        });
+</script>
+</body>
 
 </html>
