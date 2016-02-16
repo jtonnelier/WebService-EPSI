@@ -77,6 +77,7 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
         ?>
 
         <br/>
+            <h2>Cherchez un gif sur giphy !</h2>
             Recherche: <input type="text" id="rechercheInput"/>
             <button id="rechercheButton"></button>
             <div id="rechercheResltat"></div>
