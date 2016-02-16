@@ -23,8 +23,7 @@
 
             try {
                 $bdd = new PDO('mysql:host=localhost;dbname=webservice;charset=utf8', 'wordpress', 'fTy4ADLtjevELLKa');
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 die('Erreur : ' . $e->getMessage());
             }
 
