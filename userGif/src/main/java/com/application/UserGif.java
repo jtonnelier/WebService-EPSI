@@ -31,7 +31,7 @@ public class UserGif {
     public Response getGifUser(@QueryParam("format") String format, @QueryParam("login") String login, @QueryParam("token") String token) {
         String response = gifUserHelper.getUserGif(format, login, token);
         //Check format and adapt response
-        if(format == null || format.equalsIgnoreCase("json") ){
+        if(format == null || format == "" || format.equalsIgnoreCase("json") ){
             return Response.status(200).type(MediaType.APPLICATION_JSON).entity(response).build();
         }
         else{
@@ -52,7 +52,7 @@ public class UserGif {
                                @FormParam("gifURL") String gifURL ) {
         String response = gifUserHelper.addGifUser(format, login, token, label, gifURL);
         //Check format and adapt response
-        if(format.equalsIgnoreCase("json") || format == null){
+        if(format == null || format == "" | format.equalsIgnoreCase("json") ){
             return Response.status(200).type(MediaType.APPLICATION_JSON).entity(response).build();
         }
         else{

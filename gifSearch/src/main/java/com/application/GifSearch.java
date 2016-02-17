@@ -34,7 +34,7 @@ public class GifSearch {
     public Response getRandomGif(@FormParam("format") String format) {
         String response = gifSearchHelper.getRandomGif(format, apiKey);
         //Check format and adapt response
-        if(format.equalsIgnoreCase("json") || format == null){
+        if(format.equalsIgnoreCase("json") || format == null || format == ""){
             return Response.status(200).type(MediaType.APPLICATION_JSON).entity(response).build();
         }
         else{
