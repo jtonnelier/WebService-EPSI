@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 15 Février 2016 à 21:46
+-- Généré le: Mer 17 Février 2016 à 18:19
 -- Version du serveur: 5.6.12-log
 -- Version de PHP: 5.4.12
 
@@ -76,14 +76,14 @@ CREATE TABLE IF NOT EXISTS `gif` (
   PRIMARY KEY (`id`),
   KEY `site` (`site`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
 
 --
 -- Contenu de la table `gif`
 --
 
 INSERT INTO `gif` (`id`, `id_user`, `label`, `lien`, `site`) VALUES
-(1, 1, 'dance', 'https://media.giphy.com/media/11rIergnpiYpvW/giphy.gif', 1),
+(1, 1, 'saiyan', 'https://media.giphy.com/media/UIzgK9XXfH89W/giphy.gif', 1),
 (2, 1, 'saiyan', 'https://media.giphy.com/media/nZwFxFXiQ44o/giphy.gif', 1),
 (3, 1, 'saiyan', 'https://media.giphy.com/media/5vz3VR1fUMrny/giphy.gif', 1),
 (4, 1, 'saiyan', 'https://media.giphy.com/media/KE4wnvmpN4C2s/giphy.gif', 1),
@@ -93,7 +93,7 @@ INSERT INTO `gif` (`id`, `id_user`, `label`, `lien`, `site`) VALUES
 (8, 1, 'love', 'https://media.giphy.com/media/6zI0KUEik37Jm/giphy.gif', 1),
 (9, 1, 'squirt', 'https://media.giphy.com/media/l41m04f4Eh5GGnYzK/giphy.gif', 1),
 (10, 1, 'squirt', 'https://media.giphy.com/media/rz4XhX0hwke4g/giphy.gif', 1),
-(11, 1, 'squirt', 'https://media.giphy.com/media/4oyTsNZL4m9Pi/giphy.gif', 1),
+(11, 1, 'cat', 'https://s-media-cache-ak0.pinimg.com/originals/d9/d3/3a/d9d33a1277946a614ca663ea2ca55c9f.gif', 1),
 (12, 1, 'squirt', 'https://media.giphy.com/media/lB8iMZ8bR4y0E/giphy.gif', 1);
 
 -- --------------------------------------------------------
@@ -169,18 +169,18 @@ INSERT INTO `token` (`id_user`, `token`) VALUES
 CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(30) NOT NULL,
-  `password` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
   `mail` varchar(100) NOT NULL,
   `role` int(11) NOT NULL COMMENT '0=admin; 1=utilisateur',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
 
 --
 -- Contenu de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id`, `login`, `password`, `mail`, `role`) VALUES
-(1, 'admin', 'admin', 'benjamin.tessier@epsi.fr', 0),
+(1, 'admin', 'YWRtaW4=', 'benjamin.tessier@epsi.fr', 0),
 (2, 'user1', 'user1', 'mail@mail.fr', 1),
 (7, 'etheirion', '1234', 'nathan@badaud.fr', 1);
 

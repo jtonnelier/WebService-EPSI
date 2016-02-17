@@ -88,15 +88,22 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
         <form name="upload" method="post">
         Hashtag : <input type="text" name="hashtag" required/> <br />
         Lien : <input type="text" name="link" required/> <br/>
-        <input type="submit" name="upload" value="upload"/>
+        <input type="submit" name="upload" value="Upload"/>
         </form>
         <?php
         if (isset ($_POST['upload'])){
+        $imgExts = array("gif", "jpg", "jpeg", "png", "tiff", "tif");
+        $url=$_POST['link'];
+        $urlExt = pathinfo($url, PATHINFO_EXTENSION);
+        if (in_array($urlExt, $imgExts)) {
             $req = $bdd->prepare('INSERT INTO gif (id_user, label, lien, site) VALUES(?, ?, ?, ?)');
             $req->execute(array($_SESSION["id"], $_POST['hashtag'], $_POST['link'], 1));
 
             header('location:gifboard.php');
             exit;
+        } else {
+            echo 'Ce n est pas un gif !';
+        }
         };
         ?>
 
