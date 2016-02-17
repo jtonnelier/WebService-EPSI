@@ -43,11 +43,29 @@ public class UserGifTest {
         assertEquals(reponseType, MediaType.APPLICATION_JSON);
     }
 
+    //Test sans précisier le format
+    @Test
+    public void testNullGetGifUser(){
+        Mockito.when(this.mockHelper.getUserGif(anyString(), anyString(), anyString())).thenReturn("[{\"userId\": 10, \"id\": 100,}]");
+        Response response = this.userGif.getGifUser("", "login", "token");
+        String reponseType = response.getMediaType().getType() + "/" + response.getMediaType().getSubtype();
+        assertEquals(reponseType, MediaType.APPLICATION_JSON);
+    }
+
     //Test si le retour JSON est OK
     @Test
     public void testJsonaddGifUser(){
         Mockito.when(this.mockHelper.addGifUser(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("[{\"userId\": 10, \"id\": 100,}]");
         Response response = this.userGif.addGifUser("json", "login", "token", "label", "url");
+        String reponseType = response.getMediaType().getType() + "/" + response.getMediaType().getSubtype();
+        assertEquals(reponseType, MediaType.APPLICATION_JSON);
+    }
+
+    //Test sans précisier le format
+    @Test
+    public void testNulladdGifUser(){
+        Mockito.when(this.mockHelper.addGifUser(anyString(), anyString(), anyString(), anyString(), anyString())).thenReturn("[{\"userId\": 10, \"id\": 100,}]");
+        Response response = this.userGif.addGifUser("", "login", "token", "label", "url");
         String reponseType = response.getMediaType().getType() + "/" + response.getMediaType().getSubtype();
         assertEquals(reponseType, MediaType.APPLICATION_JSON);
     }

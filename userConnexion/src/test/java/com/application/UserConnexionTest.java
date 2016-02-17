@@ -36,8 +36,17 @@ public class UserConnexionTest {
     //Test si retour json possible
     @Test
     public void testJsonUserConnexion(){
-        Mockito.when(this.mockUserConnectionHelper.userConnect(anyString(), anyString(), anyString())).thenReturn("[{\"userId\": 10, \"id\": 100,}]");
+        Mockito.when(this.mockUserConnectionHelper.userConnect(anyString(), anyString(), anyString())).thenReturn("{\"userId\": 10, \"id\": 100,}");
         Response response = this.userConnexion.connectUser("json", "login", "password");
+        String reponseType = response.getMediaType().getType() + "/" + response.getMediaType().getSubtype();
+        assertEquals(reponseType, MediaType.APPLICATION_JSON);
+    }
+
+    //Test sans precision de format
+    @Test
+    public void testNullUserConnexion(){
+        Mockito.when(this.mockUserConnectionHelper.userConnect(anyString(), anyString(), anyString())).thenReturn("{\"userId\": 10, \"id\": 100,}");
+        Response response = this.userConnexion.connectUser("", "login", "password");
         String reponseType = response.getMediaType().getType() + "/" + response.getMediaType().getSubtype();
         assertEquals(reponseType, MediaType.APPLICATION_JSON);
     }
