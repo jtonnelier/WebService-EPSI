@@ -10,7 +10,7 @@
         <form name="connexion" method="post">
             login : <input type="text" name="login" required/> <br/>
             password : <input type="password" name="password" required/> <br/>
-            <input type="submit" name="log" value="se connecter"/>
+            <input type="submit" name="log" value="Se connecter"/>
         </form>
 
         <?php
@@ -23,19 +23,35 @@
                 die('Erreur : ' . $e->getMessage());
             }
 
+            $password = $_POST['password'];
+            $encodePassword= base64_encode($password);
+            echo $encodePassword;
+
             $req = $bdd->prepare('SELECT id, login, password FROM utilisateur WHERE login = :login AND password = :password');
-            $req->execute(array('login' => $_POST['login'], 'password' => $_POST['password']));
+            $req->execute(array('login' => $_POST['login'], 'password' => $encodePassword));
             $row = $req->fetch();
 
             if ($req->rowCount() == 1) {
                 $_SESSION["id"] = $row['id'];
                 $_SESSION["login"] = $_POST['login'];
-                $_SESSION["password"] = $_POST['password'];
+                $_SESSION["password"] = $encodePassword;
                 header('location:gifboard.php');
             } else {
                 echo 'Login/Password incorrect !';
             }
         }
+        ?>
+
+        <br style="clear:both;"/>
+        <form name="return" method="post">
+        <input type="submit" name="return" value="S'inscrire"/>
+        </form>
+        <?php
+        if (isset ($_POST['return'])){
+            session_destroy();
+            header('location:inscription.php');
+            exit;
+        };
         ?>
     </body>
 </html>

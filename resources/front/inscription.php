@@ -21,6 +21,8 @@
             $password=$_POST['password'];
             $mail=$_POST['mail'];
 
+            $encodePassword= base64_encode($password);
+
             try {
                 $bdd = new PDO('mysql:host=localhost;dbname=webservice;charset=utf8', 'wordpress', 'fTy4ADLtjevELLKa');
             } catch (Exception $e) {
@@ -28,8 +30,20 @@
             }
 
             $req = $bdd->prepare('INSERT INTO utilisateur (login, password, mail, role) VALUES(?, ?, ?, ?)');
-            $req->execute(array($_POST['login'], $_POST['password'], $_POST['mail'], 1));
+            $req->execute(array($_POST['login'], $encodePassword, $_POST['mail'], 1));
 
+            header('location:connexion.php');
+            exit;
+            };
+        ?>
+
+        <br style="clear:both;"/>
+        <form name="return" method="post">
+        <input type="submit" name="return" value="J'ai déjà un compte !"/>
+        </form>
+        <?php
+        if (isset ($_POST['return'])){
+            session_destroy();
             header('location:connexion.php');
             exit;
         };

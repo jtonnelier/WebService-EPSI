@@ -7,6 +7,14 @@ if(empty($_SESSION["id"])) {
     session_destroy();
     header('location:connexion.php');
 }
+if(empty($_SESSION["login"])) {
+    session_destroy();
+    header('location:connexion.php');
+}
+if(empty($_SESSION["password"])) {
+    session_destroy();
+    header('location:connexion.php');
+}
 
 try {
     $bdd = new PDO('mysql:host=localhost;dbname=webservice;charset=utf8', 'wordpress', 'fTy4ADLtjevELLKa',
@@ -133,6 +141,18 @@ $numberOfPages = ($count / $MAX_PER_PAGE);
             });
         });
 </script>
-</body>
 
+        <br style="clear:both;"/>
+        <form name="return" method="post">
+        <input type="submit" name="return" value="Se déconnecter"/>
+        </form>
+        <?php
+        if (isset ($_POST['return'])){
+            session_destroy();
+            header('location:connexion.php');
+            exit;
+        };
+        ?>
+
+</body>
 </html>
