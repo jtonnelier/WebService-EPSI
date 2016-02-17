@@ -44,7 +44,7 @@ public class GifUserHelper {
         params.put("token", token);
         params.put("label", label);
         params.put("gifURL", gifUrl);
-        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/getusergif", params, format);
+        String serviceResponse = commonServiceHelper.callWS("http://localhost:8080/sgbd/addusergif", params, format);
         return serviceResponse;
     }
 }

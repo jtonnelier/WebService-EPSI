@@ -70,7 +70,7 @@ public class SgbdService {
      * @return
      */
     @POST
-    @Path("/getusergif")
+    @Path("/addusergif")
     @Produces("application/json")
     public Response addGifUser(@FormParam("login") String login, @FormParam("token") String token, @FormParam("label") String label,
                                @FormParam("gifURL") String gifURL ){
