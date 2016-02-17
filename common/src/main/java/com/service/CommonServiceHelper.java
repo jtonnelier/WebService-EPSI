@@ -59,7 +59,12 @@ public class CommonServiceHelper {
         return jsonResponse;
     }
 
-    private String convertJsonToXML(String reponseJson){
+    /**
+     * Conversion JSON->XML
+     * @param reponseJson
+     * @return
+     */
+    public String convertJsonToXML(String reponseJson){
         JSONObject reponseJSon = JSONObject.fromObject(reponseJson);
         return xmlSerializer.write(reponseJSon).toString();
     }
