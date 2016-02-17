@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-workspace name="WebServicesProject" soapui-version="5.2.1" xmlns:con="http://eviware.com/soapui/config">
-  <con:settings/>
-  <con:project name="WS User">D:/Users/Jocelyn/IdeaProjects/ProjectWebServices/resources/WS-Connexion-soapui-project.xml</con:project>
-  <con:collectInfoForSupport>false</con:collectInfoForSupport>
-</con:soapui-workspace>
