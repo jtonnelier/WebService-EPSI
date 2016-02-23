@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
  * Created by Jocelyn on 15/12/2015.
  * Classe Service pour la recuperation / sauvegarde de gif
  */
-@Path("/")
+@Path("/usergif")
 public class UserGif {
     //Gif helper
     private GifUserHelper gifUserHelper;

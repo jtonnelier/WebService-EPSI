@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
  * Created by Jocelyn on 12/02/2016.
  * Classe d'entrée pour les connexions Utilsateurs
  */
-@Path("/")
+@Path("/search")
 public class GifSearch {
     //Gif helper
     private GifSearchHelper gifSearchHelper;
